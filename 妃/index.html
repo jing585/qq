@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>妃麟影像 | 高端婚纱摄影 · 定制你的爱情叙事诗</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FDF5F0;
+            --warm-white: #FFF9F5;
+            --burgundy: #722F37;
+            --burgundy-dark: #5A252C;
+            --burgundy-light: #8E3D47;
+            --champagne: #D4AF37;
+            --champagne-light: #E8C96A;
+            --champagne-pale: #F5E6B8;
+            --text-dark: #3D2528;
+            --text-medium: #6B4549;
+            --text-light: #9A7A7E;
+            --border-light: rgba(114, 47, 55, 0.08);
+            --pale-rose: #F5E8E0;
+            --soft-rose: #E8D0C8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--cream);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* 图片占位样式 */
+        .img-placeholder {
+            background: linear-gradient(135deg, var(--pale-rose) 0%, var(--soft-rose) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(114, 47, 55, 0.08) 0%, transparent 50%);
+        }
+
+        .img-placeholder span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 1.5rem;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(253, 245, 240, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 1px 20px rgba(114, 47, 55, 0.06);
+        }
+
+        .navbar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+        }
+
+        .navbar.scrolled .nav-logo {
+            color: var(--burgundy);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.03em;
+            transition: opacity 0.3s;
+            font-weight: 400;
+        }
+
+        .navbar.scrolled .nav-links a {
+            color: var(--text-dark);
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .nav-cta {
+            background: var(--champagne);
+            color: var(--burgundy-dark) !important;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.8rem !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--champagne-light);
+            opacity: 1 !important;
+        }
+
+        /* 首屏 Hero */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-bg .img-placeholder {
+            width: 100%;
+            height: 100%;
+            font-size: 1rem;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(61, 37, 40, 0.2) 0%,
+                rgba(61, 37, 40, 0.4) 50%,
+                rgba(61, 37, 40, 0.65) 100%
+            );
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 0 1.5rem;
+            max-width: 680px;
+        }
+
+        .hero-tag {
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            color: var(--champagne-pale);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .hero-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.08em;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            transition: all 0.35s ease;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            min-height: 48px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-primary {
+            background: var(--champagne);
+            color: var(--burgundy-dark);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 1.5px solid rgba(212, 175, 55, 0.6);
+        }
+
+        .btn-outline:hover {
+            background: rgba(212, 175, 55, 0.12);
+            border-color: var(--champagne);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            animation: float 2.5s ease-in-out infinite;
+        }
+
+        .scroll-hint svg {
+            width: 20px;
+            height: 20px;
+            stroke: rgba(255,255,255,0.5);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* 通用区块 */
+        .section {
+            padding: 5rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--champagne);
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--burgundy);
+            letter-spacing: 0.06em;
+            line-height: 1.5;
+        }
+
+        .section-title em {
+            font-style: normal;
+            color: var(--champagne);
+        }
+
+        .section-desc {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            margin-top: 0.8rem;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+
+        /* 作品集 */
+        .portfolio-section {
+            background: var(--warm-white);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 2px 16px rgba(114, 47, 55, 0.06);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(114, 47, 55, 0.1);
+        }
+
+        .portfolio-item .img-placeholder {
+            aspect-ratio: 4/5;
+            border-radius: 12px 12px 0 0;
+            font-size: 0.9rem;
+        }
+
+        .portfolio-info {
+            padding: 1.2rem 1rem;
+            text-align: center;
+        }
+
+        .portfolio-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--burgundy);
+            letter-spacing: 0.04em;
+        }
+
+        .portfolio-meta {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 0.3rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* 服务与报价 */
+        .pricing-section {
+            background: var(--cream);
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem 1.8rem;
+            text-align: center;
+            border: 1px solid var(--border-light);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--champagne-pale), var(--champagne), var(--champagne-pale));
+        }
+
+        .pricing-card:hover {
+            box-shadow: 0 8px 32px rgba(114, 47, 55, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .pricing-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: var(--burgundy);
+            border: 1px solid var(--champagne-pale);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .pricing-name {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--burgundy);
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.03em;
+        }
+
+        .pricing-details {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-details li {
+            font-size: 0.88rem;
+            color: var(--text-medium);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-light);
+            font-weight: 300;
+        }
+
+        .pricing-details li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-price {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--burgundy);
+            margin: 1rem 0 0.3rem;
+        }
+
+        .pricing-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+
+        .pricing-note {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        /* 定制理念（原关于我） */
+        .about-section {
+            background: var(--warm-white);
+        }
+
+        .about-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-photo {
+            width: 220px;
+            height: 280px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 8px 30px rgba(114, 47, 55, 0.1);
+        }
+
+        .about-photo .img-placeholder {
+            width: 100%;
+            height: 100%;
+            font-size: 0.85rem;
+        }
+
+        .about-text {
+            text-align: center;
+        }
+
+        .about-text p {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            line-height: 2;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+
+        .about-signature {
+            margin-top: 1.5rem;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.1rem;
+            color: var(--burgundy);
+            letter-spacing: 0.1em;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: var(--burgundy);
+            color: var(--pale-rose);
+            padding: 3rem 1.5rem 2rem;
+            text-align: center;
+        }
+
+        .footer-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.08em;
+            color: #fff;
+        }
+
+        .footer-subtitle {
+            font-size: 0.8rem;
+            color: var(--soft-rose);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-contact {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-wechat {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.08);
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: #fff;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-wechat svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .footer-hint {
+            font-size: 0.75rem;
+            color: var(--soft-rose);
+            font-weight: 300;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--soft-rose);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .social-icon:hover {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+        }
+
+        .social-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .social-label {
+            font-size: 0.65rem;
+            color: var(--soft-rose);
+            margin-top: 0.3rem;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--champagne);
+            margin: 1.5rem auto;
+            opacity: 0.5;
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem;
+            color: var(--soft-rose);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        /* 平板及以上 */
+        @media (min-width: 640px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.15rem;
+            }
+
+            .section {
+                padding: 6rem 2rem;
+            }
+
+            .section-title {
+                font-size: 1.9rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.8rem;
+            }
+
+            .pricing-cards {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .about-inner {
+                flex-direction: row;
+                text-align: left;
+                gap: 3rem;
+            }
+
+            .about-text {
+                text-align: left;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        /* 淡入动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 表单按钮hover */
+        button[type="submit"]:hover {
+            background: var(--burgundy-dark) !important;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--champagne) !important;
+        }
+
+        /* 提交按钮加载状态 */
+        button[type="submit"].loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        button[type="submit"].loading::after {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            margin-left: 8px;
+            vertical-align: middle;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 提交成功提示 */
+        .form-success {
+            text-align: center;
+            padding: 40px 20px;
+            display: none;
+        }
+
+        .form-success.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-success-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .form-success-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.4rem;
+            color: var(--burgundy);
+            margin-bottom: 8px;
+        }
+
+        .form-success-text {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+<base target="_blank">
+<base target="_blank">
+</head>
+<body>
+
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="nav-logo">妃麟影像</a>
+            <div class="nav-links">
+                <a href="#portfolio">作品</a>
+                <a href="#pricing">价格</a>
+                <a href="#about">理念</a>
+                <a href="#contact" class="nav-cta">预约拍摄</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首屏 Hero -->
+    <section class="hero" id="home">
+        <div class="hero-bg">
+            <img src="images/hero.jpg" alt="妃麟影像高端婚纱摄影" style="width:100%; height:100%; object-fit:cover; display:block;">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-tag">Bespoke Wedding Photography</div>
+            <h1 class="hero-title">妃麟影像 | 定制你的爱情叙事诗</h1>
+            <p class="hero-subtitle">高端婚纱摄影 · 全案定制</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">预约专属策划</a>
+                <a href="#portfolio" class="btn btn-outline">查看客片</a>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>SCROLL</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 作品集 -->
+    <section class="section portfolio-section" id="portfolio">
+        <div class="section-header fade-in">
+            <div class="section-label">Portfolio</div>
+            <h2 class="section-title">爱的叙事集 | <em>真实客片</em></h2>
+            <p class="section-desc">每一张照片，都是一段不会重来的时光</p>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-in">
+                <img src="images/portfolio-1.jpg" alt="婚纱/情侣写真占位图，建议尺寸 800x1000" loading="lazy" style="width:100%; aspect-ratio:4/5; object-fit:cover; display:block;">
+                <div class="portfolio-info">
+                    <div class="portfolio-title">晨光誓言 · 林&陈</div>
+                    <div class="portfolio-meta">私人影棚 / 2026.04</div>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="images/portfolio-2.jpg" alt="婚纱/情侣写真占位图，建议尺寸 800x1000" loading="lazy" style="width:100%; aspect-ratio:4/5; object-fit:cover; display:block;">
+                <div class="portfolio-info">
+                    <div class="portfolio-title">山海之约 · 张&王</div>
+                    <div class="portfolio-meta">旅拍纪实 / 2026.03</div>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="images/portfolio-3.jpg" alt="婚纱/情侣写真占位图，建议尺寸 800x1000" loading="lazy" style="width:100%; aspect-ratio:4/5; object-fit:cover; display:block;">
+                <div class="portfolio-info">
+                    <div class="portfolio-title">花间絮语 · 李&赵</div>
+                    <div class="portfolio-meta">花园外景 / 2026.02</div>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="images/portfolio-4.jpg" alt="婚纱/情侣写真占位图，建议尺寸 800x1000" loading="lazy" style="width:100%; aspect-ratio:4/5; object-fit:cover; display:block;">
+                <div class="portfolio-info">
+                    <div class="portfolio-title">城市情书 · 周&吴</div>
+                    <div class="portfolio-meta">都市街拍 / 2026.01</div>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="images/portfolio-5.jpg" alt="婚纱/情侣写真占位图，建议尺寸 800x1000" loading="lazy" style="width:100%; aspect-ratio:4/5; object-fit:cover; display:block;">
+                <div class="portfolio-info">
+                    <div class="portfolio-title">古堡回响 · 孙&郑</div>
+                    <div class="portfolio-meta">欧式庄园 / 2025.12</div>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="images/portfolio-6.jpg" alt="婚纱/情侣写真占位图，建议尺寸 800x1000" loading="lazy" style="width:100%; aspect-ratio:4/5; object-fit:cover; display:block;">
+                <div class="portfolio-info">
+                    <div class="portfolio-title">月下独舞 · 何&马</div>
+                    <div class="portfolio-meta">夜景定制 / 2025.11</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务与报价 -->
+    <section class="section pricing-section" id="pricing">
+        <div class="section-header fade-in">
+            <div class="section-label">Pricing</div>
+            <h2 class="section-title">价格透明 · <em>用心定制</em></h2>
+            <p class="section-desc">没有隐藏消费，只有真诚的陪伴</p>
+        </div>
+        <div class="pricing-cards">
+            <div class="pricing-card fade-in">
+                <div class="pricing-tag">经典之选</div>
+                <h3 class="pricing-name">铭心定制</h3>
+                <ul class="pricing-details">
+                    <li>拍摄时长 1 天</li>
+                    <li>精修照片 80 张</li>
+                    <li>含全部底片</li>
+                    <li>专属策划师 1 对 1</li>
+                    <li>私人影棚 / 外景 2 组</li>
+                    <li>服装造型 4 套</li>
+                </ul>
+                <div class="pricing-price">15880<span>元</span></div>
+                <div class="pricing-note">
+                    含全部底片 · 专属策划师全程跟进<br>
+                    详细流程请咨询
+                </div>
+            </div>
+            <div class="pricing-card fade-in">
+                <div class="pricing-tag">奢享之选</div>
+                <h3 class="pricing-name">至臻旅拍</h3>
+                <ul class="pricing-details">
+                    <li>拍摄时长 2 天</li>
+                    <li>精修照片 150 张</li>
+                    <li>含全部底片</li>
+                    <li>专属策划师 + 造型团队</li>
+                    <li>私人影棚 / 旅拍 3 组</li>
+                    <li>服装造型 6 套</li>
+                </ul>
+                <div class="pricing-price">25880<span>元</span></div>
+                <div class="pricing-note">
+                    含全部底片 · 私人影棚 · 旅拍定制<br>
+                    详细流程请咨询
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 定制理念（原关于我） -->
+    <section class="section about-section" id="about">
+        <div class="section-header fade-in">
+            <div class="section-label">Philosophy</div>
+            <h2 class="section-title">定制<em>理念</em></h2>
+        </div>
+        <div class="about-inner fade-in">
+            <div class="about-photo">
+                <img src="images/about.jpg" alt="妃麟影像工作室" style="width:100%; height:100%; object-fit:cover; display:block;">
+            </div>
+            <div class="about-text">
+                <p>
+                    每对新人的故事都独一无二，我们拒绝流水线拍摄。从剧本到成片，全程专属策划——你的爱情，值得被认真对待。
+                </p>
+                <p style="margin-top: 1rem;">
+                    我们相信最动人的婚纱照不是摆拍的姿态，而是你们相视一笑时眼底的光。我们用镜头书写属于你们的爱情叙事诗，让每一帧都成为时光的珍藏。
+                </p>
+                <div class="about-signature">— 妃麟影像</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 预约表单 -->
+    <section class="section" id="booking" style="padding: 0 1.5rem;">
+        <div style="max-width:800px; margin:60px auto; padding:40px 24px; background:#fef8f5; border-radius:24px;">
+            <div style="text-align:center; margin-bottom:2rem;">
+                <h2 style="font-family: 'Noto Serif SC', serif; font-size:1.8rem; font-weight:600; color:var(--burgundy); letter-spacing:0.06em; margin-bottom:0.5rem;">🍃 预约专属策划 | 获取你的定制方案</h2>
+                <p style="font-size:0.9rem; color:var(--text-light); font-weight:300;">填写下方信息，我会在24小时内联系您</p>
+            </div>
+
+            <form id="bookingForm" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="2f7bddd7-1615-4efe-8c78-68dacc14dba3">
+                <input type="hidden" name="subject" value="新询盘 - 妃麟影像婚纱摄影">
+                <input type="checkbox" name="botcheck" style="display:none">
+
+                <div style="margin-bottom:20px;">
+                    <label for="name" style="display:block; margin-bottom:8px; font-weight:600; color:var(--text-dark);">姓名 <span style="color:#c0392b;">*</span></label>
+                    <input type="text" id="name" name="name" required style="width:100%; padding:12px; border:1px solid #e8d0c5; border-radius:12px; font-family:inherit; font-size:0.95rem; color:var(--text-dark); background:#fff; outline:none; transition:border-color 0.3s;">
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <label for="contact" style="display:block; margin-bottom:8px; font-weight:600; color:var(--text-dark);">微信 / 手机号 <span style="color:#c0392b;">*</span></label>
+                    <input type="text" id="contact" name="contact" required style="width:100%; padding:12px; border:1px solid #e8d0c5; border-radius:12px; font-family:inherit; font-size:0.95rem; color:var(--text-dark); background:#fff; outline:none; transition:border-color 0.3s;">
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <label for="shoot_type" style="display:block; margin-bottom:8px; font-weight:600; color:var(--text-dark);">拍摄类型 <span style="color:#c0392b;">*</span></label>
+                    <select id="shoot_type" name="shoot_type" required style="width:100%; padding:12px; border:1px solid #e8d0c5; border-radius:12px; font-family:inherit; font-size:0.95rem; color:var(--text-dark); background:#fff; outline:none; cursor:pointer;">
+                        <option value="">请选择拍摄类型</option>
+                        <option value="铭心定制">铭心定制（15880元）</option>
+                        <option value="至臻旅拍">至臻旅拍（25880元）</option>
+                        <option value="定制咨询">定制咨询（其他需求）</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <label for="date" style="display:block; margin-bottom:8px; font-weight:600; color:var(--text-dark);">期望日期</label>
+                    <input type="date" id="date" name="date" style="width:100%; padding:12px; border:1px solid #e8d0c5; border-radius:12px; font-family:inherit; font-size:0.95rem; color:var(--text-dark); background:#fff; outline:none;">
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <label for="budget" style="display:block; margin-bottom:8px; font-weight:600; color:var(--text-dark);">预算范围</label>
+                    <select id="budget" name="budget" style="width:100%; padding:12px; border:1px solid #e8d0c5; border-radius:12px; font-family:inherit; font-size:0.95rem; color:var(--text-dark); background:#fff; outline:none; cursor:pointer;">
+                        <option value="">请选择预算范围</option>
+                        <option value="15000元以下">15000元以下</option>
+                        <option value="15000-20000元">15000-20000元</option>
+                        <option value="20000-30000元">20000-30000元</option>
+                        <option value="30000元以上">30000元以上</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom:24px;">
+                    <label for="message" style="display:block; margin-bottom:8px; font-weight:600; color:var(--text-dark);">补充说明</label>
+                    <textarea id="message" name="message" rows="3" placeholder="请简述你们的爱情故事或拍摄期望..." style="width:100%; padding:12px; border:1px solid #e8d0c5; border-radius:12px; font-family:inherit; font-size:0.95rem; color:var(--text-dark); background:#fff; outline:none; resize:vertical;"></textarea>
+                </div>
+
+                <div style="text-align:center;">
+                    <button type="submit" id="submitBtn" style="background:var(--burgundy); color:white; padding:14px 3rem; border:none; border-radius:40px; font-weight:600; font-size:1rem; cursor:pointer; font-family:inherit; letter-spacing:0.05em; transition:all 0.3s ease; width:100%;">提交预约 / 获取定制方案</button>
+
+                    <p style="font-size:0.75rem; color:var(--text-light); margin-top:0.8rem; font-weight:300;">
+                        <span style="margin-right:4px;">📷</span>您的信息仅用于预约沟通，不会公开
+                    </p>
+                    <p style="font-size:0.8rem; color:var(--text-light); margin-top:0.4rem; font-weight:300;">提交后我会在24小时内回复您</p>
+                </div>
+            </form>
+
+            <!-- 提交成功提示 -->
+            <div id="successMsg" class="form-success">
+                <div class="form-success-icon">✨</div>
+                <div class="form-success-title">预约已提交</div>
+                <div class="form-success-text">感谢您的信任，我会在24小时内联系您</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer" id="contact">
+        <div class="footer-inner">
+            <div class="footer-title">期待与你相遇</div>
+            <div class="footer-subtitle">高端婚纱摄影 · 全案定制 · 一对一专属策划</div>
+
+            <div class="footer-contact">
+                <div class="footer-wechat">
+                    <svg viewBox="0 0 24 24"><path d="M8.5 13.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm4 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M.5 11.5c0-3.5 3.5-6.5 7.5-6.5 3.5 0 6.5 2 7 5 .5-.5 1-.5 1.5-.5 3 0 5 2 5 4.5s-2.5 4.5-5.5 4.5c-.5 0-1 0-1.5-.5l-2 1 .5-1.5c-2-.5-3.5-2-4-4-3 0-5.5-1.5-5.5-3.5z"/></svg>
+                    feilinimage
+                </div>
+                <div class="footer-hint">添加请备注「婚纱定制」</div>
+            </div>
+
+            <div class="footer-social">
+                <div style="text-align: center;">
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm-1-7a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm5 7h-2v-3c0-.55-.45-1-1-1s-1 .45-1 1v3h-2v-6h2v.5c.5-.5 1.2-.8 2-.8 1.66 0 3 1.34 3 3v3.3z"/></svg>
+                    </div>
+                    <div class="social-label">小红书</div>
+                </div>
+                <div style="text-align: center;">
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.2 3H3.8C3.4 3 3 3.4 3 3.8v16.4c0 .4.4.8.8.8h16.4c.4 0 .8-.4.8-.8V3.8c0-.4-.4-.8-.8-.8zM7.5 18H5.5V9h2v9zm-1-10.5c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm12 10.5h-2v-4.5c0-1.1-.9-2-2-2s-2 .9-2 2V18h-2V9h2v1.5c.8-1.2 2.2-2 3.5-2 2.5 0 4.5 2 4.5 4.5V18z"/></svg>
+                    </div>
+                    <div class="social-label">微博</div>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+            <div class="footer-copyright">© 2026 妃麟影像 · 高端婚纱摄影 · 定制你的爱情叙事诗</div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 淡入动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 表单提交处理 - 加载状态 + 成功提示
+        const bookingForm = document.getElementById('bookingForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMsg = document.getElementById('successMsg');
+
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', function(e) {
+                // 添加加载状态
+                submitBtn.classList.add('loading');
+                submitBtn.textContent = '提交中';
+
+                // Web3Forms 会处理实际提交，这里只做UI反馈
+                // 提交成功后（约1-2秒）显示成功提示
+                setTimeout(() => {
+                    bookingForm.style.display = 'none';
+                    successMsg.classList.add('show');
+                }, 1500);
+            });
+        }
+    </script>
+
+</body>
+</html>
